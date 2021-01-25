@@ -14,7 +14,7 @@ try { // Database connection PDO
     die();
 }
 spl_autoload_register(static function ($ClassName) use ($conn) {
-    $path = '..' . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . $ClassName . '.php';
+    $path = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $ClassName) . '.php';
     require $path;
     new $ClassName($conn);
 });
