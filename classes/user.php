@@ -114,9 +114,9 @@ class user
         return ['id' => $user['id']];
     }
 
-    public static function changePassword(int $id, string $password, string $newPassword): array
+    public static function changePassword(int $userID, string $password, string $newPassword): array
     {
-        $user = self::getUserByID($id);
+        $user = self::getUserByID($userID);
         if (empty($user)) {
             return ['error' => 'User don\'t exist'];
         }
@@ -128,7 +128,7 @@ class user
         }
         $enc_password = password_hash($newPassword, PASSWORD_BCRYPT, ['cost' => PASSWORD_COST]);
         $updatePassword = self::$conn->prepare('UPDATE users SET password=:password WHERE id=:id');
-        if ($updatePassword->execute(['password' => $enc_password, 'id' => $id])) {
+        if ($updatePassword->execute(['password' => $enc_password, 'id' => $userID])) {
             return ['success' => 'Password has been changed'];
         }
         return ['error' => 'Something wen\'t wrong'];
