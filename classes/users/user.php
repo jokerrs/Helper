@@ -1,5 +1,10 @@
 <?php
 
+namespace users;
+
+use PDO;
+use IP;
+
 class user
 {
     protected static PDO $conn;
